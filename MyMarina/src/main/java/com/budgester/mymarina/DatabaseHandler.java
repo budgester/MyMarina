@@ -88,11 +88,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         marina.set_male_shower(cursor.getString(4));
         marina.set_female_toilet(cursor.getString(5));
         marina.set_female_shower(cursor.getString(6));
-
+        db.close();
         return marina;
     }
 
     // Updating single Marina
+    // A marina has to have been created in the database for this to work.
     public void updateMarina(Marina marina) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -111,7 +112,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         );
     }
 
-    // Deleting single marina
+    // Delete single marina
     public void deleteMarina(Marina marina) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_MARINAS, MARINA_NAME + " =?", new String [] {marina.get_marina_name()});

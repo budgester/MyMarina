@@ -21,7 +21,6 @@ public class MarinaActivity extends Activity {
 
     private Marina marina;
     private DatabaseHandler db;
-    private String result;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,43 +95,18 @@ public class MarinaActivity extends Activity {
 
                 db.updateMarina(marina);
                 finish();
-                startActivity(getIntent());
+                Intent intent = getIntent();
+                startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
+
         b.setNegativeButton("CANCEL", null);
         b.create().show();
-    }
 
-    public void saveMarina(View view){
-
-        TextView txtMainCode = (TextView) findViewById(R.id.main_code);
-        this.marina.set_main_code(String.valueOf(txtMainCode.getText()));
-
-        TextView txtPontoonCode = (TextView) findViewById(R.id.pontoon_code);
-        this.marina.set_pontoon_code(String.valueOf(txtPontoonCode.getText()));
-
-        TextView txtMaleToilet = (TextView) findViewById(R.id.male_toilet);
-        this.marina.set_male_toilet(String.valueOf(txtMaleToilet.getText()));
-
-        TextView txtMaleShower = (TextView) findViewById(R.id.male_shower);
-        this.marina.set_male_shower(String.valueOf(txtMaleShower.getText()));
-
-        TextView txtFemaleToilet = (TextView) findViewById(R.id.female_toilet);
-        this.marina.set_female_toilet(String.valueOf(txtFemaleToilet.getText()));
-
-        TextView txtFemaleShower = (TextView) findViewById(R.id.female_shower);
-        this.marina.set_female_shower(String.valueOf(txtFemaleShower.getText()));
-
-        this.db.updateMarina(this.marina);
-
-        //Reload Main Activity List View
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 
     public void deleteMarina(){
         this.db.deleteMarina(this.marina);
-
         //Reload Main Activity List View
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
@@ -152,9 +126,14 @@ public class MarinaActivity extends Activity {
             case R.id.delete_marina:
                 deleteMarina();
                 return true;
+            case R.id.write_nfc:
+                this.setContentView(R.layout.nfc_write);
+                Intent i = new Intent(getApplicationContext(), MarinaNFC.class);
+                i.putExtra("marina_name", this.marina.get_marina_name());
+                // sending data to new activity
+                startActivity(i);
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }

@@ -3,9 +3,4 @@
         android:title="Add Marina"
         android:orderInCategory="100"
         android:showAsAction="ifRoom" />
-
-    <item android:id="@+id/about"
-        android:title="About"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
 </menu>

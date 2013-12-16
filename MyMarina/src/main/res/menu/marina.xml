@@ -3,4 +3,10 @@
         android:title="Delete Marina"
         android:orderInCategory="100"
         android:showAsAction="ifRoom" />
+
+    <item android:id="@+id/write_nfc"
+        android:title="Write NFC"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom" />
+
 </menu>

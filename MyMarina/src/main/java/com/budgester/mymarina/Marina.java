@@ -1,9 +1,13 @@
 package com.budgester.mymarina;
 
+import android.app.Activity;
+import android.content.Context;
+import java.util.ArrayList;
+
 /**
  * Created by budgester on 17/09/13.
  */
-public class Marina {
+public class Marina extends Activity{
 
     String _marina_name;
     String _main_code;
@@ -12,6 +16,8 @@ public class Marina {
     String _male_shower;
     String _female_toilet;
     String _female_shower;
+
+    public DatabaseHandler db;
 
     public Marina(){
     }
@@ -47,4 +53,23 @@ public class Marina {
     //Female Shower
     public String get_female_shower(){return this._female_shower;}
     public void set_female_shower(String female_shower){this._female_shower = female_shower;}
+
+    public String createNFCString(){
+        String NFCString = new String(
+                "mn=" + get_marina_name() +
+                        ",mc=" + get_main_code() +
+                        ",pc=" + get_pontoon_code() +
+                        ",mt=" + get_male_toilet() +
+                        ",ms=" + get_male_shower() +
+                        ",ft=" + get_female_toilet() +
+                        ",fs=" + get_female_shower());
+        return NFCString;
+    }
+
+    public ArrayList getAllMarinas(Context context){
+        db = new DatabaseHandler(context);
+        ArrayList marinaList = this.db.getAllMarinas();
+        return marinaList;
+    }
+
 }

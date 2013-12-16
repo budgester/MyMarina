@@ -15,25 +15,41 @@ import android.widget.TextView;
 import android.app.AlertDialog;
 import android.widget.EditText;
 import java.util.ArrayList;
+import android.util.Log;
 
 public class MainActivity extends ListActivity {
 
     public DatabaseHandler db;
     public ListView lv;
     public ArrayAdapter<String> ad;
-    public ArrayList<String> marinas;
+    public ArrayList<String> marinaList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("MyMarina","Starting");
         super.onCreate(savedInstanceState);
+        Marina marina = new Marina();
+
+        marinaList = marina.getAllMarinas(this);
+        ad = new ArrayAdapter<String>(this, R.layout.list_marina, R.id.label, marinaList);
+        displayMarinas();
+    }
+
+    @Override
+    public void onResume(){
+        Log.d("MyMarina","Resuming");
+
+        super.onResume();
+        Marina marina = new Marina();
+        marinaList = marina.getAllMarinas(this);
+        ad = new ArrayAdapter<String>(this, R.layout.list_marina, R.id.label, marinaList);
+        ad.notifyDataSetChanged();
         displayMarinas();
     }
 
     public void displayMarinas(){
-        db = new DatabaseHandler(this);
-        marinas = db.getAllMarinas();
-        ad = new ArrayAdapter<String>(this, R.layout.list_marina, R.id.label, marinas);
-
+        Log.d("MyMarina","Displaying");
+        //Create new marina object
         this.setListAdapter(ad);
 
         lv = getListView();
@@ -48,12 +64,14 @@ public class MainActivity extends ListActivity {
                 Intent i = new Intent(getApplicationContext(), MarinaActivity.class);
                 // sending data to new activity
                 i.putExtra("marina_name", marina_name);
-                startActivity(i);
+                startActivity(i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
-    }
+     }
+
 
     public void newMarina(){
+        db = new DatabaseHandler(this);
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Enter Marina Name");
 
@@ -62,18 +80,22 @@ public class MainActivity extends ListActivity {
         alert.setView(input);
 
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-             public void onClick(DialogInterface dialog, int whichButton) {
-             String marina_name = input.getText().toString();
-             Marina marina = new Marina(marina_name);
-             db.addMarina(marina);
-             displayMarinas();
-             }
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String marina_name = input.getText().toString();
+                Marina marina = new Marina(marina_name);
+                db.addMarina(marina);
+                db.close();
+                Intent i = new Intent(getApplicationContext(), MarinaActivity.class);
+                // sending data to new activity
+                i.putExtra("marina_name", marina_name);
+                startActivity(i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
         });
 
-         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-           public void onClick(DialogInterface dialog, int whichButton) {
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
                 // Canceled.
-           }
+            }
         });
 
         alert.show();
@@ -81,7 +103,7 @@ public class MainActivity extends ListActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-    // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -97,5 +119,4 @@ public class MainActivity extends ListActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }
