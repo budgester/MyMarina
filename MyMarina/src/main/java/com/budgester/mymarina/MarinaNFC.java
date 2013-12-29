@@ -38,6 +38,13 @@ public class MarinaNFC extends Activity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.nfc_write);
+        Intent i = getIntent();
+        String marina_name = i.getStringExtra("marina_name");
+        setTitle(marina_name);
+    }
+
+    public void write_nfc(){
+        //Kabloey
     }
 
     @Override
@@ -86,6 +93,8 @@ public class MarinaNFC extends Activity{
                     }
                 }
 
+
+                //TODO - Check if marina already exists, if it does then update rather than create.
                 db.addMarina(marina);
                 db.updateMarina(marina);
                 db.close();

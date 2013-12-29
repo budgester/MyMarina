@@ -18,4 +18,14 @@
         android:text="nfcStringGoeshere"
         android:id="@+id/nfcString"
         android:layout_gravity="center" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Write"
+        android:id="@+id/write"
+        android:layout_gravity="center_horizontal"
+        android:onClick="write_nfc"
+        android:clickable="true"
+        android:enabled="true" />
 </LinearLayout>
