@@ -28,9 +28,8 @@ public class MainActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("MyMarina","Starting");
         super.onCreate(savedInstanceState);
-        Marina marina = new Marina();
-
-        marinaList = marina.getAllMarinas(this);
+        db = new DatabaseHandler(this);
+        marinaList = db.getAllMarinas();
         ad = new ArrayAdapter<String>(this, R.layout.list_marina, R.id.label, marinaList);
         displayMarinas();
     }
@@ -40,8 +39,8 @@ public class MainActivity extends ListActivity {
         Log.d("MyMarina","Resuming");
 
         super.onResume();
-        Marina marina = new Marina();
-        marinaList = marina.getAllMarinas(this);
+        db = new DatabaseHandler(this);
+        marinaList = db.getAllMarinas();
         ad = new ArrayAdapter<String>(this, R.layout.list_marina, R.id.label, marinaList);
         ad.notifyDataSetChanged();
         displayMarinas();
@@ -85,6 +84,7 @@ public class MainActivity extends ListActivity {
                 Marina marina = new Marina(marina_name);
                 db.addMarina(marina);
                 db.close();
+                //marina.create();
                 Intent i = new Intent(getApplicationContext(), MarinaActivity.class);
                 // sending data to new activity
                 i.putExtra("marina_name", marina_name);

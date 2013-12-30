@@ -37,6 +37,7 @@ public class MarinaActivity extends Activity {
         this.marina = new Marina(marina_name);
         this.marina = this.db.getMarina(marina_name);
 
+
         TextView txtMainCode = (TextView) findViewById(R.id.main_code);
         txtMainCode.setText(this.marina.get_main_code());
 
@@ -94,6 +95,7 @@ public class MarinaActivity extends Activity {
                 }
 
                 db.updateMarina(marina);
+                //marina.update();
                 finish();
                 Intent intent = getIntent();
                 startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));

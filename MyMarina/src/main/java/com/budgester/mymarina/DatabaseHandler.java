@@ -71,6 +71,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     public Marina getMarina(String marina_name){
+    //public void getMarina(Marina marina, String marina_name){
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_MARINAS, new String[] {

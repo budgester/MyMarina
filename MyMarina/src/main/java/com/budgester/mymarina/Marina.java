@@ -23,7 +23,30 @@ public class Marina extends Activity{
     }
 
     public Marina(String marina_name){
+        this.db = new DatabaseHandler(this);
         this._marina_name = marina_name;
+    }
+
+//    public void create(){
+//        this.db.addMarina(this);
+//    }
+
+    //public void read(){
+    //    this.db.getMarina(this, this._marina_name);
+    //}
+
+    public void update(){
+        this.db.updateMarina(this);
+
+    }
+
+    public void delete(){
+        db.deleteMarina(this);
+    }
+
+    public ArrayList getAllMarinas(){
+        ArrayList marinaList = db.getAllMarinas();
+        return marinaList;
     }
 
     //Marina Name
@@ -65,11 +88,4 @@ public class Marina extends Activity{
                         ",fs=" + get_female_shower());
         return NFCString;
     }
-
-    public ArrayList getAllMarinas(Context context){
-        db = new DatabaseHandler(context);
-        ArrayList marinaList = this.db.getAllMarinas();
-        return marinaList;
-    }
-
 }
