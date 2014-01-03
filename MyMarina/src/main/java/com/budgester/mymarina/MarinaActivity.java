@@ -93,9 +93,7 @@ public class MarinaActivity extends Activity {
                 if (myID == R.id.female_shower){
                     marina.set_female_shower(input.getText().toString());
                 }
-
                 db.updateMarina(marina);
-                //marina.update();
                 finish();
                 Intent intent = getIntent();
                 startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
@@ -129,10 +127,8 @@ public class MarinaActivity extends Activity {
                 deleteMarina();
                 return true;
             case R.id.write_nfc:
-                this.setContentView(R.layout.nfc_write);
-                Intent i = new Intent(getApplicationContext(), MarinaNFC.class);
-                i.putExtra("marina_name", this.marina.get_marina_name());
-                // sending data to new activity
+                Intent i = new Intent(getApplicationContext(), MarinaNFCWrite.class);
+                i.putExtra("marina", this.marina.get_marina_name());
                 startActivity(i);
             default:
                 return super.onOptionsItemSelected(item);

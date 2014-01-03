@@ -56,39 +56,48 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void addMarina(Marina marina) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(MARINA_NAME, marina.get_marina_name());
-        values.put(MAIN_CODE, "----");
-        values.put(PONTOON_CODE, "----");
-        values.put(MALE_TOILET, "----");
-        values.put(MALE_SHOWER, "----");
-        values.put(FEMALE_TOILET, "----");
-        values.put(FEMALE_SHOWER, "----");
+        if(this.marinaExists(marina.get_marina_name()) == 0){
+            ContentValues values = new ContentValues();
+            values.put(MARINA_NAME, marina.get_marina_name());
+            values.put(MAIN_CODE, "----");
+            values.put(PONTOON_CODE, "----");
+            values.put(MALE_TOILET, "----");
+            values.put(MALE_SHOWER, "----");
+            values.put(FEMALE_TOILET, "----");
+            values.put(FEMALE_SHOWER, "----");
 
-        // Inserting Row
-        db.insert(TABLE_MARINAS, null, values);
+            db.insert(TABLE_MARINAS, null, values);
+        }
         db.close(); // Closing database connection
     }
 
+    public int marinaExists(String marina_name){
+        String countQuery = "SELECT marina_name FROM marinas WHERE marina_name = '" + marina_name + "'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int cnt = cursor.getCount();
+        cursor.close();
+        return cnt;
+    }
+
     public Marina getMarina(String marina_name){
-    //public void getMarina(Marina marina, String marina_name){
 
         SQLiteDatabase db = this.getReadableDatabase();
+        Marina marina = new Marina(marina_name);
+
         Cursor cursor = db.query(TABLE_MARINAS, new String[] {
                 MARINA_NAME, MAIN_CODE, PONTOON_CODE, MALE_TOILET, MALE_SHOWER, FEMALE_TOILET, FEMALE_SHOWER
                 }, MARINA_NAME + "=?",
                 new String [] {marina_name},null, null, null, null);
-        if (cursor != null)
+        if (cursor != null){
             cursor.moveToFirst();
-
-        Marina marina = new Marina(marina_name);
-
-        marina.set_main_code(cursor.getString(1));
-        marina.set_pontoon_code(cursor.getString(2));
-        marina.set_male_toilet(cursor.getString(3));
-        marina.set_male_shower(cursor.getString(4));
-        marina.set_female_toilet(cursor.getString(5));
-        marina.set_female_shower(cursor.getString(6));
+            marina.set_main_code(cursor.getString(1));
+            marina.set_pontoon_code(cursor.getString(2));
+            marina.set_male_toilet(cursor.getString(3));
+            marina.set_male_shower(cursor.getString(4));
+            marina.set_female_toilet(cursor.getString(5));
+            marina.set_female_shower(cursor.getString(6));
+        }
         db.close();
         return marina;
     }

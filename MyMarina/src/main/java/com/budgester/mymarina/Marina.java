@@ -1,8 +1,6 @@
 package com.budgester.mymarina;
 
 import android.app.Activity;
-import android.content.Context;
-import java.util.ArrayList;
 
 /**
  * Created by budgester on 17/09/13.
@@ -25,28 +23,6 @@ public class Marina extends Activity{
     public Marina(String marina_name){
         this.db = new DatabaseHandler(this);
         this._marina_name = marina_name;
-    }
-
-//    public void create(){
-//        this.db.addMarina(this);
-//    }
-
-    //public void read(){
-    //    this.db.getMarina(this, this._marina_name);
-    //}
-
-    public void update(){
-        this.db.updateMarina(this);
-
-    }
-
-    public void delete(){
-        db.deleteMarina(this);
-    }
-
-    public ArrayList getAllMarinas(){
-        ArrayList marinaList = db.getAllMarinas();
-        return marinaList;
     }
 
     //Marina Name
@@ -76,16 +52,4 @@ public class Marina extends Activity{
     //Female Shower
     public String get_female_shower(){return this._female_shower;}
     public void set_female_shower(String female_shower){this._female_shower = female_shower;}
-
-    public String createNFCString(){
-        String NFCString = new String(
-                "mn=" + get_marina_name() +
-                        ",mc=" + get_main_code() +
-                        ",pc=" + get_pontoon_code() +
-                        ",mt=" + get_male_toilet() +
-                        ",ms=" + get_male_shower() +
-                        ",ft=" + get_female_toilet() +
-                        ",fs=" + get_female_shower());
-        return NFCString;
-    }
 }

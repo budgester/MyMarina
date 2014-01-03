@@ -84,7 +84,6 @@ public class MainActivity extends ListActivity {
                 Marina marina = new Marina(marina_name);
                 db.addMarina(marina);
                 db.close();
-                //marina.create();
                 Intent i = new Intent(getApplicationContext(), MarinaActivity.class);
                 // sending data to new activity
                 i.putExtra("marina_name", marina_name);

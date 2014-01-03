@@ -3,6 +3,6 @@
 
     <string name="app_name">MyMarina</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="write_mode">Start Write Mode</string>
 
 </resources>

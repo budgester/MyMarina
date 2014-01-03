@@ -1,20 +1,17 @@
 package com.budgester.mymarina;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.content.Intent;
+import android.widget.Toast;
 
 /**
- * Created by budgester on 05/10/13.
+ * Created by budgester on 02/01/14.
  */
-public class MarinaNFC extends Activity{
-
-    private Marina marina;
-    private DatabaseHandler db;
-
+public class MarinaNFCRead extends Activity {
     /*
         Marina Name passed to function.
         Will need to write
@@ -37,20 +34,11 @@ public class MarinaNFC extends Activity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.nfc_write);
-        Intent i = getIntent();
-        String marina_name = i.getStringExtra("marina_name");
-        setTitle(marina_name);
+        readTag();
     }
 
-    public void write_nfc(){
-        //Kabloey
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        marina = new Marina();
+    private void readTag(){
+        Marina marina = new Marina();
         Intent intent = getIntent();
         DatabaseHandler db = new DatabaseHandler(this);
 
@@ -68,8 +56,9 @@ public class MarinaNFC extends Activity{
                 byte[] payload = msgs[0].getRecords()[0].getPayload();
                 String allcodes = new String(payload);
 
-                //TextView txtNFCMarinaName = (TextView) findViewById(R.id.nfc_marina_name);
-                //txtNFCMarinaName.setText(allcodes);
+                Toast.makeText(getApplicationContext(),
+                        allcodes,
+                        Toast.LENGTH_SHORT).show();
 
                 String[] codes = allcodes.split(",");
 
@@ -93,15 +82,15 @@ public class MarinaNFC extends Activity{
                     }
                 }
 
-
-                //TODO - Check if marina already exists, if it does then update rather than create.
                 db.addMarina(marina);
                 db.updateMarina(marina);
                 db.close();
-                Intent home = new Intent(this, MainActivity.class);
-                startActivity(home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         }
+
+        Toast.makeText(getApplicationContext(),
+                "Imported Data",
+                Toast.LENGTH_SHORT).show();
         finish();
     }
 }

@@ -5,8 +5,8 @@
     android:versionName="1.1" >
 
     <uses-sdk
-        android:minSdkVersion="10"
-        android:targetSdkVersion="16" />
+        android:minSdkVersion="17"
+        android:targetSdkVersion="17" />
 
     <uses-permission android:name="android.permission.NFC" />
     <uses-feature android:name="android.hardware.nfc" android:required="false" />
@@ -37,8 +37,13 @@
         </activity>
 
         <activity
-            android:name="com.budgester.mymarina.MarinaNFC"
-            android:label="NFC" >
+            android:name="com.budgester.mymarina.MarinaNFCWrite"
+            android:label="MarinaNFCWrite">
+        </activity>
+
+        <activity
+            android:name="com.budgester.mymarina.MarinaNFCRead"
+            android:label="MarinaNFCRead" >
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
                 <category android:name="android.intent.category.DEFAULT"/>

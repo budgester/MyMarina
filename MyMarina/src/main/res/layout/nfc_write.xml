@@ -1,31 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.budgester.mymarina.MarinaNFCWrite" >
 
-    <TextView
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/value"
+        android:hint="Value"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Tap NFC Tag to Write Marina Details"
-        android:id="@+id/textTap"
-        android:layout_gravity="center" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="nfcStringGoeshere"
-        android:id="@+id/nfcString"
-        android:layout_gravity="center" />
+        android:text="mn=test_marina,mc=test1,pc=test2" />
 
     <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Write"
-        android:id="@+id/write"
-        android:layout_gravity="center_horizontal"
-        android:onClick="write_nfc"
-        android:clickable="true"
-        android:enabled="true" />
+        android:text="@string/write_mode" />
 </LinearLayout>
