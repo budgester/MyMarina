@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MyMarina.iml" filepath="$PROJECT_DIR$/MyMarina.iml" />
       <module fileurl="file://$PROJECT_DIR$/MyMarina/MyMarina-MyMarina.iml" filepath="$PROJECT_DIR$/MyMarina/MyMarina-MyMarina.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StudioProjects-MyMarina.iml" filepath="$PROJECT_DIR$/StudioProjects-MyMarina.iml" />
     </modules>
   </component>
 </project>
-

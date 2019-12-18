@@ -1,1 +1,2 @@
 include ':MyMarina'
+rootProject.name='MyMarina'
